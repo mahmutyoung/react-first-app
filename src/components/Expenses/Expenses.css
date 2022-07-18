@@ -1,5 +1,6 @@
 .expenses {
     padding: 1rem;
+    padding-top: 3rem;
     background-color: rgb(31, 31, 31);
     margin: 2rem auto;
     width: 50rem;
@@ -7,3 +8,5 @@
     border-radius: 12px;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   }
+.visible{visibility: visible;}
+.invisible{visibility: hidden;}

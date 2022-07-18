@@ -1,47 +1,67 @@
 import ExpenseItem from "./ExpenseItem";
-import './Expenses.css';
-import Card from '../UI/Card';
+import "./Expenses.css";
+import Card from "../UI/Card";
+import Filter from "./Filter";
 
-const Expenses= (props) => {
-    const expenses = [
-        {
-          id: 'e1',
-          title: 'Toilet Paper',
-          amount: 94.12,
-          date: new Date(2020, 7, 14),
-        },
-        { id: 'e2', title: 'New TV', amount: 799.49, date: new Date(2021, 2, 12) },
-        {
-          id: 'e3',
-          title: 'Car Insurance',
-          amount: 294.67,
-          date: new Date(2021, 2, 28),
-        },
-        {
-          id: 'e4',
-          title: 'New Desk (Wooden)',
-          amount: 450,
-          date: new Date(2021, 5, 12),
-        },
-      ];
-    const elements=expenses;
-    const list=elements.map(element=>
-        
-        <ExpenseItem
+
+/** This component displays filtered expenses.
+ * 
+ * 
+*/
+
+const Expenses = (props) => {
+  console.log("here");
+
+  //const [filterYear, setFilterYear] = useState("2020");
+  
+  const optionHandler = (selectedYear) => {
+    //setFilterYear(selectedYear);
+    //props.filter=filterYear;
+    //props.onChange(filterYear);
+    props.onChange(selectedYear);
+    console.log("here");
+  };
+
+  
+  /**
+   * show expenses as a list of ExpenseItem acc to filter.
+   * option 1: show all expenses
+   * option 2: show specific year
+   * in both cases if the list is empty show information
+   */
+  let list = [];
+  if (props.filter === "All") {
+    console.log("here");
+    list = props.items.map((element) => (
+      <ExpenseItem
         key={element.id}
         title={element.title}
         amount={element.amount}
         date={element.date}
-      />)
-    
-   
-    
-    return(
-        <Card className='expenses'>
-        {list}
-      </Card>
-    );
+      />
+    ));
+  } else {
+    list = props.items
+      .filter((element) => element.date.getFullYear().toString() ===props.filter)
+      .map((element) => (
+        <ExpenseItem
+          key={element.id}
+          title={element.title}
+          amount={element.amount}
+          date={element.date}
+        />
+      ));
+  }
+  if (list.length === 0) {
+    list = <h2>NO EXPENSES</h2>;
+  }
 
-}
+  return (
+    <Card className="expenses">
+      <Filter filter={props.filter} onChange={optionHandler}></Filter>
+      {list}
+    </Card>
+  );
+};
 
 export default Expenses;
