@@ -1,4 +1,4 @@
-import ExpenseHeader from './components/Expenses/ExpenseHeader';
+
 import Expenses from './components/Expenses/Expenses';
 import NewExpense from './components/NewExpense/NewExpense';
 import Chart from './components/Chart/Chart';
@@ -54,7 +54,6 @@ const App = () => {
   
   return (
     <div>
-      <ExpenseHeader />
       <NewExpense onAddExpense={addExpenseHandler} />
       <Chart dataPoints={dataList} chartFilterYear={filterYear}/>
       <Expenses items={expenses} filter={filterYear} onChange={optionHandler} />

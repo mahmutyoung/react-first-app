@@ -97,8 +97,8 @@ const Chart = (props) => {
         }
     }
 
-    return (<Card className='chart'>
-        {list}
+    return (<Card className={props.chartFilterYear!=="All"?'chart':'hidden'}>
+        {props.chartFilterYear!=="All"?list:''}
     </Card>
     );
 }
