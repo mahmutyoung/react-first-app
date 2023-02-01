@@ -4,30 +4,28 @@ import './Chart.css';
 
 const Chart = (props) => {
 
-
-    const filteredByYearMonth = props.dataPoints
-        .filter(item => item.year.toString() === props.chartFilterYear)
+    console.log('<Chart> : initiated')
+    const filteredByYearMonth = props.dataList
+        .filter(item => item.year.toString() === props.filterYear)
         .map(e => {
             const yearMonth = e.year + '0' + e.month;
-
             return { key: yearMonth, value: e.value };
         })
     console.log(filteredByYearMonth)
 
+
     const yearMonthMap = new Map();
-
     filteredByYearMonth.forEach(item => {
-
         if (yearMonthMap.get(item.key) === undefined) {
             yearMonthMap.set(item.key, item.value)
-
         } else {
             yearMonthMap.set(item.key, yearMonthMap.get(item.key) + item.value)
         }
     })
 
-    //The max value of all individual inputs(props.dataPoints) 
-    const initialValues = props.dataPoints.map(item => item.value);
+
+    //The max value of all individual inputs(props.dataList) 
+    const initialValues = props.dataList.map(item => item.value);
     const initialMax = Math.max(...initialValues)
 
     //The max value 
@@ -89,7 +87,6 @@ const Chart = (props) => {
                 list[10] = <ChartBar label='Dec' value={yearMonthMap.get(x)} key={x} />
                 break;
             case 11:
-
                 list[11] = <ChartBar label='Dec' value={yearMonthMap.get(x)} key={x} />
                 break;
             default:
@@ -97,9 +94,10 @@ const Chart = (props) => {
         }
     }
 
-    return (<Card className={props.chartFilterYear!=="All"?'chart':'hidden'}>
-        {props.chartFilterYear!=="All"?list:''}
+    return (<Card className={props.filterYear!=="All"?'chart':'hidden'}>
+        {props.filterYear!=="All"?list:''}
     </Card>
     );
 }
+
 export default Chart

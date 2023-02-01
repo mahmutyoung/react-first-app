@@ -4,9 +4,8 @@ import './ExpenseItem.css';
 import Card from '../UI/Card';
 
 const ExpenseItem= props => {
-
+  console.log('<ExpenseItem> : initiated')
   const[title, setTitle]=useState(props.title);
-  
   const clickHandler = ()=>{
     setTitle('Undefined');
     console.log(title)

@@ -10,7 +10,7 @@ import Filter from "./Filter";
 */
 
 const Expenses = (props) => {
-  console.log("here");
+  console.log('<Expenses> : initiated')
 
   //const [filterYear, setFilterYear] = useState("2020");
   
@@ -30,9 +30,9 @@ const Expenses = (props) => {
    * in both cases if the list is empty show information
    */
   let list = [];
-  if (props.filter === "All") {
+  if (props.filterYear === "All") {
     console.log("here");
-    list = props.items.map((element) => (
+    list = props.expenses.map((element) => (
       <ExpenseItem
         key={element.id}
         title={element.title}
@@ -41,7 +41,7 @@ const Expenses = (props) => {
       />
     ));
   } else {
-    list = props.items
+    list = props.expenses
       .filter((element) => element.date.getFullYear().toString() ===props.filter)
       .map((element) => (
         <ExpenseItem
@@ -58,7 +58,7 @@ const Expenses = (props) => {
 
   return (
     <Card className="expenses">
-      <Filter filter={props.filter} onChange={optionHandler}></Filter>
+      <Filter filterYear={props.filterYear} onChange={optionHandler}></Filter>
       {list}
     </Card>
   );

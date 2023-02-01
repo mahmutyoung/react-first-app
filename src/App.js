@@ -1,9 +1,7 @@
-
 import Expenses from './components/Expenses/Expenses';
-import NewExpense from './components/NewExpense/NewExpense';
+import NewExpenseForm from './components/NewExpense/NewExpenseForm';
 import Chart from './components/Chart/Chart';
 import { useState } from 'react';
-
 /* const DUMMY = [
   {
     id: 'e1',
@@ -26,21 +24,21 @@ import { useState } from 'react';
   },
 ]; */
 const App = () => {
-
-
+  console.log('<App> : initiated')
   const [expenses, setExpenses] = useState([])
   const [filterYear, setFilterYear] = useState("2020");
 
-  const addExpenseHandler = (newExpense) => {
+  const submitHandler = (newExpense) => {
+    console.log('<App> : submitHandler()')
     setExpenses(previousExpenses => {
       return [newExpense, ...previousExpenses]
     });
   }
-  const optionHandler = selectedYear =>{
+
+  const optionHandler = selectedYear => {
     setFilterYear(selectedYear);
-    
   };
-  
+
   const dataList = expenses.map(expense => {
     const data = { value: null, year: null, month: null }
     data.value = Number(expense.amount);
@@ -49,16 +47,14 @@ const App = () => {
     return data;
   })
 
- 
   console.log(dataList);
-  
+
   return (
     <div>
-      <NewExpense onAddExpense={addExpenseHandler} />
-      <Chart dataPoints={dataList} chartFilterYear={filterYear}/>
-      <Expenses items={expenses} filter={filterYear} onChange={optionHandler} />
+      <NewExpenseForm submitHandler={submitHandler} />
+      <Chart dataList={dataList} filterYear={filterYear} />
+      <Expenses expenses={expenses} filterYear={filterYear} onChange={optionHandler} />
     </div>
   );
 }
-
 export default App;

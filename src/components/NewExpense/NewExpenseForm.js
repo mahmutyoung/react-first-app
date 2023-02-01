@@ -1,39 +1,48 @@
 import React, { useState } from 'react';
-import './ExpenseForm.css';
+import './NewExpenseForm.css';
 
 
-const ExpenseForm = (props) => {
+const NewExpenseForm = (props) => {
 
+  console.log('<ExpenseForm> : initiated')
   const [enteredTitle, setEnteredTitle] = useState('')
   const [enteredAmount, setEnteredAmount] = useState('')
   const [enteredDate, setEnteredDate] = useState('')
   const [uiCheck, setUiCheck] = useState(false);
+
 
   const titleChangeHandler = (event) => setEnteredTitle(event.target.value);
   const amountChangeHandler = (event) => setEnteredAmount(event.target.value);
   const dateChangeHandler = (event) => setEnteredDate(event.target.value);
 
 
-
   const submitHandler = (event) => {
+    console.log(event.type + ' event triggered')
     event.preventDefault();
-
+    console.log('<ExpenseForm> : submitHandler()');
     const newExpense = {
       id: Math.random().toString(),  //add id
       title: enteredTitle,
       amount: enteredAmount,
       date: new Date(enteredDate)
     }
-
-    props.onAddExpense(newExpense);
-    console.log(newExpense);
+    props.submitHandler(newExpense);
     setEnteredTitle('');
     setEnteredAmount('');
     setEnteredDate('');
+    setUiCheck(!uiCheck);
   }
 
 
-  /**
+  const resetHandler=()=>{
+      console.log('<ExpenseForm> resetHandler : Form resetted')
+      setEnteredTitle('');
+      setEnteredAmount('');
+      setEnteredDate('');
+  }
+
+
+  /*
   //Alternatives  
   const [userInput, setUserInput]=useState({enteredTitle:'',
                                               enteredAmount:'',
@@ -69,6 +78,7 @@ const ExpenseForm = (props) => {
 
   if (uiCheck === true) {
     return (
+      <div className='new-expense'>
       <form onSubmit={submitHandler}>
         <div className='new-expense__controls'>
           <div className='new-expense__control'>
@@ -85,22 +95,18 @@ const ExpenseForm = (props) => {
           </div>
           <div className='new-expense__actions'>
             <button type='submit' >Add</button>
-            <button onClick={() => {
-              setUiCheck(!uiCheck);
-              setEnteredTitle('');
-              setEnteredAmount('');
-              setEnteredDate('');
-            }} type='reset'>Cancel</button>
+            <button type='reset' onClick={resetHandler} >Cancel</button>
           </div>
         </div>
       </form>
-
+      </div>
     );
   } else {
     return (
+      <div className='new-expense'>
       <button onClick={() => setUiCheck(!uiCheck)}>Add New Expense</button>
+      </div>
     );
   }
-
 }
-export default ExpenseForm;
+export default NewExpenseForm;
