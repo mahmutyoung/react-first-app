@@ -54,7 +54,6 @@ const Chart = (props) => {
         switch (Number(x) % 100) {
             case 0:
                 list[0] = <ChartBar label='Dec' value={yearMonthMap.get(x)} key={x} />
-
                 break;
             case 1:
                 list[1] = <ChartBar label='Dec' value={yearMonthMap.get(x)} key={x} />
